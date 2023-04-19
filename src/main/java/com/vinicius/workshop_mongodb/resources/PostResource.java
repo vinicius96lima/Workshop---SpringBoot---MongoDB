@@ -15,24 +15,23 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.vinicius.workshop_mongodb.DTO.UserDTO;
 import com.vinicius.workshop_mongodb.domain.User;
+import com.vinicius.workshop_mongodb.repositor.PostRepository;
 import com.vinicius.workshop_mongodb.service.UserService;
 
 @RestController
 @RequestMapping(value = "/users")
-public class UserResource {
+public class PostResource {
 	
 	@Autowired
 	private UserService service;
 	
 	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity <List<UserDTO>> findAll(){
-		
-		List <User> list = service.findAll();
-		
+	public ResponseEntity <List<UserDTO>> findAll(){		
+		List <User> list = service.findAll();		
 		List<UserDTO> listDTO = list.stream().map( x -> new UserDTO(x)).collect(Collectors.toList());
-		
 		return ResponseEntity.ok().body(listDTO);
 	}
+	
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity <UserDTO> findById(@PathVariable String id){
