@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 
+import com.vinicius.workshop_mongodb.DTO.AutorDTO;
 import com.vinicius.workshop_mongodb.domain.Post;
 import com.vinicius.workshop_mongodb.domain.User;
 import com.vinicius.workshop_mongodb.repositor.PostRepository;
@@ -35,10 +36,11 @@ public class Instantiation implements CommandLineRunner{
 		User alex = new User(null, "Alex Green", "alex@gmail.com");
 		User bob = new User(null, "Bob Grey", "bob@gmail.com");
 		
-		Post obj = new Post(null, sdf.parse("19/04/2023"), "Partiu viagem", "Vou viajar para SP abraços", maria);
-		Post obj1 = new Post(null, sdf.parse("19/04/2023"), "Partiu viagem", "Vou viajar", maria);
-		
 		userRepository.saveAll(Arrays.asList(maria,bob, alex));
+		
+		Post obj = new Post(null, sdf.parse("19/04/2023"), "Partiu viagem", "Vou viajar para SP abraços", new AutorDTO(maria));
+		Post obj1 = new Post(null, sdf.parse("19/04/2023"), "Partiu viagem", "Vou viajar", new AutorDTO(maria));
+	
 		postRepository.saveAll(Arrays.asList(obj, obj1));
 
 		
