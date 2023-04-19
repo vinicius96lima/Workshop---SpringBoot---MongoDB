@@ -14,13 +14,13 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.vinicius.workshop_mongodb.DTO.UserDTO;
+import com.vinicius.workshop_mongodb.domain.Post;
 import com.vinicius.workshop_mongodb.domain.User;
-import com.vinicius.workshop_mongodb.repositor.PostRepository;
 import com.vinicius.workshop_mongodb.service.UserService;
 
 @RestController
 @RequestMapping(value = "/users")
-public class PostResource {
+public class UserResource {
 	
 	@Autowired
 	private UserService service;
@@ -58,8 +58,12 @@ public class PostResource {
 		User obj = service.fromDTO(objDTO);
 		obj.setId(id);
 		obj = service.update(obj);
-		return ResponseEntity.noContent().build();
-		
+		return ResponseEntity.noContent().build();		
 	}
 	
+	@RequestMapping(value = "/{id}/posts", method = RequestMethod.GET)
+	public ResponseEntity <List<Post>> findPost(@PathVariable String id){
+		User obj = service.findById(id);
+		return ResponseEntity.ok().body(obj.getPost());
+	}
 }
